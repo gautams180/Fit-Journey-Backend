@@ -1,0 +1,29 @@
+# consruction-saas-backend
+
+- Folder Structue
+  - apis /
+    - versions /
+      - v1.js
+  - documents /
+    - images /
+  - environments /
+    - development.env
+    - staging.env
+    - production.env
+  - modules /
+    - users / (can be copied directly to create a new module)
+      - controller.js
+      - operation.js
+      - route.js
+      - sanitizer.js
+      - validator.js
+  - services /
+    - authentication /
+      - authenticator.js
+    - connections /
+      - mysql.js
+    - logger /
+    - third-party /
+  - index.js
+  - .gitignore
+  - package.json

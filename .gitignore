@@ -1,0 +1,7 @@
+# NodeJS specific #
+node_modules/
+package-lock.json
+documents/
+*.log
+grns/*
+.env
