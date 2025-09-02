@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require("mysql2/promise");
 var util = require("util");
 const { logger } = require("../../logger/winstonLogger");
 const ENV = process.env;
