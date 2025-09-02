@@ -13,6 +13,7 @@ const ENV = process.env;
 const compression = require("compression");
 // const morgan = require("morgan");
 // require("./cron/cron");
+const v1 = require("./apis/versions/v1");
 app.use("/v1", v1);
 app.use(express.static(__dirname + ENV.CLIENT));
 const html = ENV.CLIENT;
@@ -57,7 +58,6 @@ app.use(compression());
 app.use(cors());
 // app.options("*", cors());
 
-const v1 = require("./apis/versions/v1");
 
 server.listen(ENV.PORT, '0.0.0.0', () => {
   logger.info(`⚙️  Server started on ${ENV.URL}:${ENV.PORT}`);
