@@ -14,18 +14,50 @@ const compression = require("compression");
 // const morgan = require("morgan");
 // require("./cron/cron");
 const v1 = require("./apis/versions/v1");
-app.use("/v1", v1);
-app.use(express.static(__dirname + ENV.CLIENT));
-const html = ENV.CLIENT;
-// const { socketInit } = require('./services/sockets/socket');
 const morganMiddleware = require('./logger/morganLogger');
 const { logger } = require('./logger/winstonLogger')
 
+app.set("trust proxy", 1); // NEW: behind Render proxy
+
+// ---- CORS (allow Vercel + local dev) ----
+const allowedOrigins = [
+  "https://fit-journey-ten.vercel.app",
+  "http://localhost:5173",
+];
+
+const corsOptions = {
+  origin(origin, cb) {
+    if (!origin) return cb(null, true); // server-to-server/curl
+    if (allowedOrigins.includes(origin)) return cb(null, true);
+    return cb(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+  methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  maxAge: 600,
+};
+
+app.use(cors(corsOptions));          // NEW: must be BEFORE routes
+app.options("*", cors(corsOptions)); // NEW: handle preflight early
+// ----------------------------------------
+
+// Parsers & compression BEFORE routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(compression());
+
+// Static (serve built frontend if you have it)
+app.use(express.static(__dirname + ENV.CLIENT));
+const html = ENV.CLIENT;
+
+// API routes AFTER middleware (so they get CORS headers)
+app.use("/v1", v1);
 
 const server = http.createServer(app);
 // app.use(morganMiddleware);
 
 // Attach Socket.IO to the server
+// const { socketInit } = require('./services/sockets/socket');
 // socketInit(server);
 
 const allowedExt = [
@@ -43,26 +75,13 @@ const allowedExt = [
   ".pdf",
 ];
 
-app.use(express.static('/client'))
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.use(compression());
+// REMOVED: app.use(express.static('/client'))  // wrong absolute path to root
 
 // app.use(morgan("dev"));
-
-app.use(cors());
-// app.options("*", cors());
-
 
 server.listen(ENV.PORT, '0.0.0.0', () => {
   logger.info(`⚙️  Server started on ${ENV.URL}:${ENV.PORT}`);
 });
-
 
 server.timeout = 1000000;
 
