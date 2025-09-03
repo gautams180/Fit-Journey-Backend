@@ -22,6 +22,7 @@ app.set("trust proxy", 1); // NEW: behind Render proxy
 // ---- CORS (allow Vercel + local dev) ----
 const allowedOrigins = [
   "https://fit-journey-ten.vercel.app",
+  "https://fit-journey-8o30.onrender.com",
   "http://localhost:5173",
 ];
 
