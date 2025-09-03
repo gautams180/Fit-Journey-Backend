@@ -38,8 +38,8 @@ const corsOptions = {
   maxAge: 600,
 };
 
-app.use(cors(corsOptions));          // NEW: must be BEFORE routes
-app.options("*", cors(corsOptions)); // NEW: handle preflight early
+// app.use(cors(corsOptions));          // NEW: must be BEFORE routes
+// app.options("*", cors(corsOptions)); // NEW: handle preflight early
 // ----------------------------------------
 
 // Parsers & compression BEFORE routes
