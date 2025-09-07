@@ -10,7 +10,7 @@ const { logger } = require("./logger/winstonLogger");
 const v1 = require("./apis/versions/v1");
 
 // IMPORTANT: initialize DB pool at startup (adjust path if needed)
-require("./modules/common/mysql"); // ensures pool is created and pinged
+require("./services/connections/mysql"); // ensures pool is created and pinged
 
 const app = express();
 app.set("trust proxy", 1); // Render proxy
