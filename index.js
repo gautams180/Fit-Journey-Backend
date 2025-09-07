@@ -62,7 +62,7 @@ app.use("/v1", v1);
 // ---------- Static assets & SPA fallback ----------
 // If you’re building React inside this repo, the build usually ends up in ./client/build
 const clientRoot = process.env.CLIENT || "./client"; // e.g. "./client/"
-const clientBuildPath = path.resolve(process.cwd(), clientRoot, "build");
+const clientBuildPath = path.resolve(process.cwd(), clientRoot);
 
 // Serve static assets if build exists
 app.use(
