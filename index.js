@@ -22,19 +22,19 @@ const allowedOrigins = [
   "http://localhost:5173",
 ];
 
-app.use(
-  cors({
-    origin(origin, cb) {
-      if (!origin) return cb(null, true); // server-to-server or curl
-      if (allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    maxAge: 600,
-  })
-);
+// app.use(
+//   cors({
+//     origin(origin, cb) {
+//       if (!origin) return cb(null, true); // server-to-server or curl
+//       if (allowedOrigins.includes(origin)) return cb(null, true);
+//       return cb(new Error("Not allowed by CORS"));
+//     },
+//     credentials: true,
+//     methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     maxAge: 600,
+//   })
+// );
 app.options("*", cors()); // handle preflights quickly
 
 // ---------- Request body & compression ----------
@@ -46,15 +46,15 @@ app.use(compression());
 app.get("/healthz", (_req, res) => res.status(200).send("ok"));
 
 // ---------- Optional: per-request timeout guard ----------
-app.use((req, res, next) => {
-  // If something upstream hangs (DB/external), fail fast instead of proxy 502
-  res.setTimeout(25_000, () => {
-    if (!res.headersSent) {
-      res.status(504).json({ error: "Upstream timeout" });
-    }
-  });
-  next();
-});
+// app.use((req, res, next) => {
+//   // If something upstream hangs (DB/external), fail fast instead of proxy 502
+//   res.setTimeout(25_000, () => {
+//     if (!res.headersSent) {
+//       res.status(504).json({ error: "Upstream timeout" });
+//     }
+//   });
+//   next();
+// });
 
 // ---------- API routes (PUT THEM BEFORE SPA STATIC) ----------
 app.use("/v1", v1);

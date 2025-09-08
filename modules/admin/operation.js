@@ -170,7 +170,7 @@ let self = (module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         const day_id = new Date().getDay() + 1;
-        console.log("day_id", day_id);
+        // console.log("day_id", day_id);
 
         let schedule_query = `
           SELECT

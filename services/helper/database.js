@@ -1,10 +1,12 @@
-const pool = require("../connections/mysql");
+const dbPool = require("../connections/mysql");
 const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
 const http = require("http");
 const https = require("https");
 const async = require("async");
 let CONSTANTS = require("../helper/constants");
+
+const pool = dbPool.pool;
 
 let self = (module.exports = {
   is_exist: async function (query, values = [], connection = false) {
