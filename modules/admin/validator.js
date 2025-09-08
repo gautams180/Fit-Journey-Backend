@@ -19,13 +19,13 @@ const createVariationSchema = Joi.object({
   sets: Joi.array()
     .items(
       Joi.object({
-        set_id: Joi.number()
-          .min(0)
-          .required()
-          .messages({
-            'any.required': 'Weight is required for each set',
-            'number.base': 'Weight must be a number'
-          }),
+        // set_id: Joi.number()
+        //   .min(0)
+        //   .required()
+        //   .messages({
+        //     'any.required': 'Weight is required for each set',
+        //     'number.base': 'Weight must be a number'
+        //   }),
         weight: Joi.number()
           .min(0)
           .required()
