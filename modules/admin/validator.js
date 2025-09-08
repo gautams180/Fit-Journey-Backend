@@ -2,12 +2,12 @@ const Joi = require('joi');
 const Response = require("../../services/helper/response");
 
 const createVariationSchema = Joi.object({
-  workout_id: Joi.number()
-    .required()
-    .messages({
-      'any.required': 'Weight is required for each set',
-      'number.base': 'Weight must be a number'
-    }),
+  // workout_id: Joi.number()
+  //   .required()
+  //   .messages({
+  //     'any.required': 'Weight is required for each set',
+  //     'number.base': 'Weight must be a number'
+  //   }),
   name: Joi.string()
     .required()
     .messages({
