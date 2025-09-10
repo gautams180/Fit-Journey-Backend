@@ -55,6 +55,13 @@ const createVariationSchema = Joi.object({
     .messages({
       'array.base': 'Sets must be an array',
       'array.min': 'At least one set is required'
+    }),
+
+  category_id: Joi.number()
+    .required()
+    .messages({
+      'any.required': 'Category ID is required',
+      'number.base': 'Category ID must be a number'
     })
 });
 
@@ -73,12 +80,12 @@ const addWorkoutToScheduleSchema = Joi.object({
       'number.base': 'Day ID must be a number'
     }),
 
-  category_id: Joi.number()
-    .required()
-    .messages({
-      'any.required': 'Category ID is required',
-      'number.base': 'Category ID must be a number'
-    })
+  // category_id: Joi.number()
+  //   .required()
+  //   .messages({
+  //     'any.required': 'Category ID is required',
+  //     'number.base': 'Category ID must be a number'
+  //   })
 });
 
 const removeWorkoutFromScheduleSchema = Joi.object({
@@ -159,9 +166,9 @@ const editWorkoutSchema = Joi.object({
 
 module.exports = {
   validateCreateVariation: async function (req, res, next) {
-    const { name, sets } = req.body;
+    const { name, sets, category_id } = req.body;
 
-    const { value, error } = createVariationSchema.validate({ name, sets });
+    const { value, error } = createVariationSchema.validate({ name, sets, category_id });
 
     if (error !== undefined) {
       return res
@@ -177,7 +184,7 @@ module.exports = {
     const { value, error } = addWorkoutToScheduleSchema.validate({
       workout_id,
       day_id,
-      category_id
+      // category_id
     });
 
     if (error) {

@@ -35,7 +35,9 @@ const allowedOrigins = [
 //     maxAge: 600,
 //   })
 // );
-app.options("*", cors()); // handle preflights quickly
+app.use(cors({
+  origin: "*"
+})); // handle preflights quickly
 
 // ---------- Request body & compression ----------
 app.use(express.json({ limit: "1mb" }));

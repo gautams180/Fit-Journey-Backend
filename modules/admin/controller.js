@@ -27,9 +27,9 @@ try {
     try {
       generic_logger(req, res);
 
-      const { name, sets } = req.body;
+      const { name, sets, category_id } = req.body;
 
-      let response = await Operations.createVariation(name, sets);
+      let response = await Operations.createVariation(name, sets, category_id);
 
       logger.info(response, req.method + ":" + req.baseUrl);
 

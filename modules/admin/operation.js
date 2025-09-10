@@ -27,7 +27,7 @@ let self = (module.exports = {
     })
   },
 
-  createVariation: async function (name, sets) {
+  createVariation: async function (name, sets, category_id) {
     return new Promise(async (resolve, reject) => {
       let connection = await Database.getConnection();
       try {
@@ -35,8 +35,8 @@ let self = (module.exports = {
 
         let variation_query = `
           INSERT INTO ${CONSTANTS.TABLES.WORKOUT} 
-          (name)
-          VALUES ('${name}')
+          (name, category_id)
+          VALUES ('${name}', ${category_id})
       `;
 
         const variation_response = await Database.insert(variation_query, [], connection);
