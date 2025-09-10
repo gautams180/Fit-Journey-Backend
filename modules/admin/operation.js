@@ -281,10 +281,11 @@ let self = (module.exports = {
 
         let workouts_query = `
           SELECT
-            w.workout_id, w.name as workout_name, w.muscle_targetted,
+            w.workout_id, w.name as workout_name, w.muscle_targetted, w.category_id, c.name as category_name,
             s.set_id, s.set_count, s.weight, s.plates, s.reps
           FROM ${CONSTANTS.TABLES.WORKOUT} w 
           LEFT JOIN ${CONSTANTS.TABLES.SETS} s ON s.workout_id = w.workout_id
+          LEFT JOIN ${CONSTANTS.TABLES.CATEGORY} c ON w.category_id = c.id
         `;
 
         const workouts_response = await Database.fetch(workouts_query);
@@ -300,6 +301,8 @@ let self = (module.exports = {
               workout_id: item.workout_id,
               workout_name: item.workout_name,
               muscle_targetted: item.muscle_targetted,
+              category_id: item.category_id,
+              category_name: item.category_name,
               sets: {}
             };
           };
@@ -325,6 +328,8 @@ let self = (module.exports = {
           workout_id: w.workout_id,
           workout_name: w.workout_name,
           muscle_targetted: w.muscle_targetted,
+          category_id: w.category_id,
+          category_name: w.category_name,
           sets: Object.values(w.sets).map((s) => ({
             set_id: s.set_id,
             set_count: s.set_count,

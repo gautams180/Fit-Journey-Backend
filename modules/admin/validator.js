@@ -80,12 +80,12 @@ const addWorkoutToScheduleSchema = Joi.object({
       'number.base': 'Day ID must be a number'
     }),
 
-  // category_id: Joi.number()
-  //   .required()
-  //   .messages({
-  //     'any.required': 'Category ID is required',
-  //     'number.base': 'Category ID must be a number'
-  //   })
+  category_id: Joi.number()
+    .required()
+    .messages({
+      'any.required': 'Category ID is required',
+      'number.base': 'Category ID must be a number'
+    })
 });
 
 const removeWorkoutFromScheduleSchema = Joi.object({
@@ -184,7 +184,7 @@ module.exports = {
     const { value, error } = addWorkoutToScheduleSchema.validate({
       workout_id,
       day_id,
-      // category_id
+      category_id
     });
 
     if (error) {
