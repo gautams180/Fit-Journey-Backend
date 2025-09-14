@@ -174,7 +174,7 @@ let self = (module.exports = {
 
         let schedule_query = `
           SELECT
-          d.name as day, sch.schedule_id, 
+          d.id as day_id, d.name as day, sch.schedule_id, 
           w.workout_id as workout_id, w.name, w.muscle_targetted,
           s.set_id as set_id, s.set_count, s.weight, s.plates, s.reps,
           c.name as category
@@ -202,6 +202,7 @@ let self = (module.exports = {
           if (!scheduleMap[row.day]) {
             scheduleMap[row.day] = {
               day: row.day,
+              day_id: row.day_id,
               categories: {}
             };
           };
@@ -242,6 +243,7 @@ let self = (module.exports = {
 
         const schedule = Object.values(scheduleMap).map((item) => ({
           day: item.day,
+          day_id: item.day_id,
           categories: Object.values(item.categories).map((c) => ({
             category: c.category,
             workouts: Object.values(c.workouts).map((w) => ({
